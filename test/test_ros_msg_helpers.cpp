@@ -22,13 +22,16 @@ namespace {
     }
 
     TEST(RosMsgHelpers, QualifiesDefaultNodeWithNamespace) {
-        EXPECT_EQ(asr_interface::qualify_node_fqn("/"), "/asr");
-        EXPECT_EQ(asr_interface::qualify_node_fqn("/robot_a"), "/robot_a/asr");
+        EXPECT_EQ(asr_interface::qualify_node_fqn(), "/asr");
+        EXPECT_EQ(asr_interface::qualify_node_fqn(
+                          asr_interface::kDefaultNodeFqn, "/robot_a"),
+                  "/robot_a/asr");
         EXPECT_EQ(asr_interface::topic_event(asr_interface::kDefaultNodeFqn, "/robot_a"),
                   "/robot_a/asr/event");
         EXPECT_EQ(asr_interface::topic_state(asr_interface::kDefaultNodeFqn, "/robot_a/"),
                   "/robot_a/asr/state");
-        EXPECT_THROW(static_cast<void>(asr_interface::qualify_node_fqn("robot_a")),
+        EXPECT_THROW(static_cast<void>(asr_interface::qualify_node_fqn(
+                             asr_interface::kDefaultNodeFqn, "robot_a")),
                      std::invalid_argument);
     }
 

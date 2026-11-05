@@ -52,8 +52,8 @@ namespace asr_interface {
 
     /// 把默认节点全名限定到调用方 namespace；根 namespace 保持默认名。
     [[nodiscard]] inline std::string qualify_node_fqn(
-            const std::string_view node_namespace,
-            const std::string_view default_node_fqn = detail::kDefaultNodeFqn) {
+            const std::string_view default_node_fqn = detail::kDefaultNodeFqn,
+            const std::string_view node_namespace = "/") {
         const auto base = detail::trim_trailing_slashes(default_node_fqn);
         detail::require_node_fqn(base);
 
@@ -80,13 +80,13 @@ namespace asr_interface {
     [[nodiscard]] inline std::string topic_event(
             const std::string_view node_fqn = detail::kDefaultNodeFqn,
             const std::string_view node_namespace = "/") {
-        return detail::endpoint_name(qualify_node_fqn(node_namespace, node_fqn), "event");
+        return detail::endpoint_name(qualify_node_fqn(node_fqn, node_namespace), "event");
     }
 
     [[nodiscard]] inline std::string topic_state(
             const std::string_view node_fqn = detail::kDefaultNodeFqn,
             const std::string_view node_namespace = "/") {
-        return detail::endpoint_name(qualify_node_fqn(node_namespace, node_fqn), "state");
+        return detail::endpoint_name(qualify_node_fqn(node_fqn, node_namespace), "state");
     }
 
     // 与生成消息名称一致的简洁类型别名。

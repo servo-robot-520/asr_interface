@@ -77,7 +77,7 @@ def test_python_endpoint_helpers() -> None:
     assert ros_msg.topic_state() == "/asr/state"
     assert ros_msg.topic_event("/robot_a/asr") == "/robot_a/asr/event"
     assert ros_msg.topic_event("/robot_a/asr///") == "/robot_a/asr/event"
-    assert ros_msg.qualify_node_fqn("/robot_a") == "/robot_a/asr"
+    assert ros_msg.qualify_node_fqn(ros_msg.DEFAULT_NODE_FQN, "/robot_a") == "/robot_a/asr"
     assert ros_msg.topic_event(ros_msg.DEFAULT_NODE_FQN, "/robot_a") == "/robot_a/asr/event"
 
 
