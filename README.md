@@ -25,6 +25,13 @@
 
 `node_fqn` 必须是非根绝对 ROS 名称，不能包含 ASCII 空白或中间的空路径段；尾部多余 `/` 会自动移除。
 
+所有话题 helper 都接受可选的第二个 namespace 参数，内部调用 `qualify_node_fqn()`：
+
+```cpp
+topic_event(kDefaultNodeFqn, node->get_namespace())  // /robot_a/asr/event
+topic_state(kDefaultNodeFqn, node->get_namespace())  // /robot_a/asr/state
+```
+
 例如目标节点是 `/robot_a/asr` 时：
 
 ```text
